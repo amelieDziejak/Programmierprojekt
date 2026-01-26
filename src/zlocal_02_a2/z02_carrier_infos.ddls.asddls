@@ -1,6 +1,6 @@
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'informationen je Carrier ID'
+@EndUserText.label: 'Informationen je Carrier ID'
 @Metadata.ignorePropagatedAnnotations: true
 define view entity Z02_carrier_infos
   as select from /dmo/flight     as Flight
@@ -11,12 +11,15 @@ define view entity Z02_carrier_infos
     inner join   /dmo/airport    as DepartureAirport on Connection.airport_from_id = DepartureAirport.airport_id
 
     inner join   /dmo/airport    as ArrivalAirport   on Connection.airport_to_id = ArrivalAirport.airport_id
+
+    inner join   /dmo/carrier    as Carrier          on Flight.carrier_id = Carrier.carrier_id -- NEU: Join zur Carrier-Tabelle
 {
   key Flight.carrier_id,
   key Flight.connection_id,
   key Flight.flight_date,
 
       -- Felder mit sprechenden Namen versehen (Aliase)
+      Carrier.name             as CarrierName, -- NEU: Name der Fluggesellschaft
       Flight.carrier_id        as CarrierId,
       Flight.connection_id     as ConnectionId,
       Flight.flight_date       as FlightDate,

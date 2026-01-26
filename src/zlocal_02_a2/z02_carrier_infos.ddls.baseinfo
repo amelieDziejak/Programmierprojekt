@@ -4,6 +4,7 @@
 "FROM":
 [
 "/DMO/AIRPORT",
+"/DMO/CARRIER",
 "/DMO/CONNECTION",
 "/DMO/FLIGHT"
 ],
