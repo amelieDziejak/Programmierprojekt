@@ -1,0 +1,54 @@
+@Metadata.layer: #CUSTOMER
+
+@UI.headerInfo: { typeName: 'Booking',
+                  typeNamePlural: 'Bookings',
+                  title: { type: #STANDARD, value: 'BookingId' },
+                  description.value: 'CarrierId' }
+
+annotate entity ZC_02_BookingTP with
+
+{
+  /* Facets Definition für die Object Page */
+  @UI.facet: [ { type: #FIELDGROUP_REFERENCE, label: 'General Data',     position: 10, targetQualifier: 'GeneralData' },
+               { type: #FIELDGROUP_REFERENCE, label: 'Pricing & Flight', position: 20, targetQualifier: 'PriceData'   },
+               { type: #LINEITEM_REFERENCE, targetElement: '_Flight', label: 'Flight', position: 40 } ]
+  
+  @UI.fieldGroup: [ { position: 10, qualifier: 'GeneralData' } ]
+  @UI.lineItem: [ { position: 10 } ]
+  @UI.selectionField: [ { position: 10 } ]
+  BookingId;
+
+  @UI.fieldGroup: [ { position: 20, qualifier: 'GeneralData' } ]
+  @UI.lineItem: [ { position: 20 } ]
+  BookingDate;
+
+  @UI.fieldGroup: [ { position: 30, qualifier: 'GeneralData' } ]
+  @UI.lineItem: [ { position: 30 } ]
+  @UI.selectionField: [ { position: 20 } ]
+  CustomerId;
+
+  @UI.fieldGroup: [ { position: 10, qualifier: 'PriceData' } ]
+  @UI.lineItem: [ { position: 40 } ]
+  @UI.selectionField: [ { position: 30 } ]
+  CarrierId;
+
+  @UI.fieldGroup: [ { position: 20, qualifier: 'PriceData' } ]
+  @UI.lineItem: [ { position: 50 } ]
+  @UI.selectionField: [ { position: 40 } ]
+  ConnectionId;
+
+  @UI.fieldGroup: [ { position: 30, qualifier: 'PriceData' } ]
+  @UI.lineItem: [ { position: 60 } ]
+  @UI.selectionField: [ { position: 50 } ]
+  FlightDate;
+
+  @UI.fieldGroup: [ { position: 40, qualifier: 'PriceData' } ]
+  @UI.lineItem: [ { position: 70 } ]
+  FlightPrice;
+
+  @UI.fieldGroup: [ { position: 50, qualifier: 'PriceData' } ]
+  CurrencyCode;
+
+  @UI.hidden: false
+  _Flight;
+}

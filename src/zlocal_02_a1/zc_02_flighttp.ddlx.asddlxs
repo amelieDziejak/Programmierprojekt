@@ -1,0 +1,60 @@
+@Metadata.layer: #CUSTOMER
+
+@UI.headerInfo: { typeName: 'Flight',
+                  typeNamePlural: 'Flights',
+                  title.value: 'ConnectionId',
+                  description.value: 'CarrierId' }
+
+annotate entity ZC_02_FlightTP with
+
+{
+  /* --- FACETS (Struktur der Seite) --- */
+  @UI.facet: [ { type: #FIELDGROUP_REFERENCE, targetQualifier: 'BasicData', label: 'Connection Details', position: 20 },
+               { type: #FIELDGROUP_REFERENCE, targetQualifier: 'CapacityData', label: 'Aircraft & Seats', position: 30 },
+               { type: #LINEITEM_REFERENCE, targetElement: '_Bookings', label: 'Bookings', position: 40 } ]
+
+
+  /* --- FIELD GROUP: BASIC DATA --- */
+  @UI.fieldGroup: [ { position: 10, qualifier: 'BasicData' } ]
+  @UI.lineItem: [ { position: 10 } ]
+  @UI.selectionField: [ { position: 10 } ]
+  ConnectionId;
+
+  @UI.fieldGroup: [ { position: 20, qualifier: 'BasicData' } ]
+  @UI.lineItem: [ { position: 20 } ]
+  @UI.selectionField: [ { position: 20 } ]
+  CarrierId;
+
+  @UI.fieldGroup: [ { position: 30, qualifier: 'BasicData' } ]
+  @UI.lineItem: [ { position: 30 } ]
+  @UI.selectionField: [ { position: 30 } ]
+  FlightDate;
+
+  @UI.fieldGroup: [ { position: 40, qualifier: 'BasicData' } ]
+  @UI.lineItem: [ { position: 40 } ]
+  @UI.selectionField: [ { position: 40 } ]
+  Price;
+
+  /* --- FIELD GROUP: CAPACITY DATA --- */
+  @UI.fieldGroup: [ { position: 10, qualifier: 'CapacityData' } ]
+  @UI.lineItem: [ { position: 50 } ]
+  @UI.selectionField: [ { position: 50 } ]
+  PlaneTypeId;
+
+
+  @UI.fieldGroup: [ { position: 20, qualifier: 'CapacityData' } ]
+  @UI.lineItem: [ { position: 60 } ]
+  SeatsMax;
+
+  @UI.fieldGroup: [ { position: 30, qualifier: 'CapacityData' } ]
+  @UI.lineItem: [ { position: 70 } ]
+  SeatsOccupied;
+
+  @UI.fieldGroup: [ { position: 40, qualifier: 'CapacityData' } ]
+  @UI.lineItem: [ { position: 80 } ]
+  @UI.selectionField: [ { position: 60 } ]
+  SeatOccupancyRate;
+
+  @UI.hidden: false
+  _Bookings;
+}
