@@ -4,6 +4,7 @@
                   typeNamePlural: 'Flights',
                   title.value: 'ConnectionId',
                   description.value: 'CarrierId' }
+@UI.lineItem:[{ criticality: 'SeatOccupancCiticality'}]
 
 annotate entity ZC_02_FlightTP with
 
@@ -35,11 +36,11 @@ annotate entity ZC_02_FlightTP with
   @UI.selectionField: [ { position: 40 } ]
   Price;
 
-  /* --- FIELD GROUP: CAPACITY DATA --- */
-  @UI.fieldGroup: [ { position: 10, qualifier: 'CapacityData' } ]
-  @UI.lineItem: [ { position: 50 } ]
-  @UI.selectionField: [ { position: 50 } ]
-  PlaneTypeId;
+//  /* --- FIELD GROUP: CAPACITY DATA --- */
+//  @UI.fieldGroup: [ { position: 10, qualifier: 'CapacityData' } ]
+//  @UI.lineItem: [ { position: 50 } ]
+//  @UI.selectionField: [ { position: 50 } ]
+//  PlaneTypeId;
 
 
   @UI.fieldGroup: [ { position: 20, qualifier: 'CapacityData' } ]
@@ -50,10 +51,14 @@ annotate entity ZC_02_FlightTP with
   @UI.lineItem: [ { position: 70 } ]
   SeatsOccupied;
 
-  @UI.fieldGroup: [ { position: 40, qualifier: 'CapacityData' } ]
-  @UI.lineItem: [ { position: 80 } ]
+  @UI.fieldGroup: [ { position: 40, qualifier: 'CapacityData', criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.lineItem: [ { position: 80, criticality: 'SeatOccupancCiticality', criticalityRepresentation: #WITHOUT_ICON } ]
   @UI.selectionField: [ { position: 60 } ]
+  @UI.dataPoint: { criticality: 'SeatOccupancCiticality' }
   SeatOccupancyRate;
+  
+  @UI.hidden: true
+  SeatOccupancCiticality;
 
   @UI.hidden: false
   _Bookings;

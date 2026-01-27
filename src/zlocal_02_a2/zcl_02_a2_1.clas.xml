@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_02_A2_CARRIER_INFO</CLSNAME>
+    <CLSNAME>ZCL_02_A2_1</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>2</DESCRIPT>
+    <DESCRIPT>Get info by user id</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

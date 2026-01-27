@@ -18,6 +18,6 @@ define view entity ZI_02_Flight
       currency_code  as CurrencyCode,
       plane_type_id  as PlaneTypeId,
       seats_max      as SeatsMax,
-      seats_occupied as SeatsOccupied,
-      division(seats_occupied, seats_max, 2) as SeatOccupancyRate
+      seats_occupied as SeatsOccupied
+     
 }

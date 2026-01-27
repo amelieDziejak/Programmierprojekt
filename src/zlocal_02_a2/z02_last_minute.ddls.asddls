@@ -14,11 +14,15 @@ define view entity Z02_last_minute
   join /dmo/airport as DestinationAirport on /dmo/connection.airport_to_id = DestinationAirport.airport_id
 {
      key Flight.carrier_id,
-  key Flight.connection_id,
-  key Flight.flight_date,
+     key Flight.connection_id,
+     key Flight.flight_date,
 
       // Berechnetes Feld für freie Plätze
       (Flight.seats_max - Flight.seats_occupied) as AvailableSeats,
+
+      // NEU: Uhrzeiten hinzugefügt
+      /dmo/connection.departure_time as DepartureTime,
+      /dmo/connection.arrival_time   as ArrivalTime,
 
       /dmo/carrier.name   as CarrierName,
       DepartureAirport.name     as DepartureAirportName,
@@ -29,7 +33,7 @@ define view entity Z02_last_minute
 }
 // WHERE-Bedingung für die Last-Minute-Logik
 where
-      // Kriterium 1: Flug findet heute oder in den nächsten 3 Tagen statt
+      // Kriterium 1: Flug findet heute oder in den nächsten 300 Tagen statt
       Flight.flight_date >= $session.system_date
   and Flight.flight_date <= dats_add_days( $session.system_date, 300, 'FAIL' )
 

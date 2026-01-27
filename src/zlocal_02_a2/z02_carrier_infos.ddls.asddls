@@ -12,17 +12,20 @@ define view entity Z02_carrier_infos
 
     inner join   /dmo/airport    as ArrivalAirport   on Connection.airport_to_id = ArrivalAirport.airport_id
 
-    inner join   /dmo/carrier    as Carrier          on Flight.carrier_id = Carrier.carrier_id -- NEU: Join zur Carrier-Tabelle
+    inner join   /dmo/carrier    as Carrier          on Flight.carrier_id = Carrier.carrier_id
 {
   key Flight.carrier_id,
   key Flight.connection_id,
   key Flight.flight_date,
 
-      -- Felder mit sprechenden Namen versehen (Aliase)
-      Carrier.name             as CarrierName, -- NEU: Name der Fluggesellschaft
+      Carrier.name             as CarrierName,
       Flight.carrier_id        as CarrierId,
       Flight.connection_id     as ConnectionId,
       Flight.flight_date       as FlightDate,
+      
+      -- NEU: Uhrzeiten hinzugefügt
+      Connection.departure_time as DepartureTime,
+      Connection.arrival_time   as ArrivalTime,
 
       DepartureAirport.name    as DepartureAirport,
       DepartureAirport.city    as DepartureCity,

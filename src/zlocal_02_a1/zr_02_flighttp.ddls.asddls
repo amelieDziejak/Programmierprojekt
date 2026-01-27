@@ -18,7 +18,17 @@ define root view entity ZR_02_FlightTP
       PlaneTypeId,
       SeatsMax,
       SeatsOccupied,
-      SeatOccupancyRate,
+      
+      division(SeatsOccupied, SeatsMax, 2) as SeatOccupancyRate,
+      
+      case 
+        when division(SeatsOccupied, SeatsMax, 2) > 0.7 then 1
+        when division(SeatsOccupied, SeatsMax, 2) > 0.4 then 2
+        
+        when division(SeatsOccupied, SeatsMax, 2) > 0    then 3
+        else 0 
+      end as SeatOccupancCiticality,
+   
 
       _Bookings
 

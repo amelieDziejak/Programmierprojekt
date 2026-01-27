@@ -1,4 +1,4 @@
-CLASS zcl_02_a2_statistics DEFINITION
+CLASS zcl_02_a2_4 DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -11,7 +11,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_02_a2_statistics IMPLEMENTATION.
+CLASS zcl_02_a2_4 IMPLEMENTATION.
 
   METHOD if_oo_adt_classrun~main.
 

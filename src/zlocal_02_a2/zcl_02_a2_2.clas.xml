@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_02_A2_MAIN</CLSNAME>
+    <CLSNAME>ZCL_02_A2_2</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Get info by user id</DESCRIPT>
+    <DESCRIPT>get info about airline flight details</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

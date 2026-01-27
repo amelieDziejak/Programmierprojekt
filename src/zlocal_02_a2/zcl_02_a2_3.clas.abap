@@ -1,4 +1,4 @@
-CLASS zcl_02_a2_last_minute DEFINITION
+CLASS zcl_02_a2_3 DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -8,17 +8,16 @@ CLASS zcl_02_a2_last_minute DEFINITION
 
 ENDCLASS.
 
-CLASS zcl_02_a2_last_minute IMPLEMENTATION.
+CLASS zcl_02_a2_3 IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 
-    out->write( |Suche Last-Minute-Angebote für die nächsten 3 Tage...| ).
+    out->write( |Suche Last-Minute-Angebote für die nächsten 300 Tage...| ).
     out->write( '======================================================' ).
 
     " 1. Datenabruf über die CDS-View
-    " Die komplexe Logik ist vollständig in der View gekapselt.
     SELECT *
       FROM Z02_last_minute
-      ORDER BY flight_date, price " Sortiert nach Datum und dann nach dem günstigsten Preis
+      ORDER BY flight_date, price
       INTO TABLE @DATA(lt_offers).
 
     " 2. Ausgabe der gefundenen Angebote
@@ -31,8 +30,13 @@ CLASS zcl_02_a2_last_minute IMPLEMENTATION.
       LOOP AT lt_offers INTO DATA(ls_offer).
         out->write( |> Flug von { ls_offer-departureairportname } nach { ls_offer-destinationairportname }| ).
         out->write( |  Airline: { ls_offer-carriername } ({ ls_offer-carrier_id }-{ ls_offer-connection_id })| ).
-        out->write( |  Datum: { ls_offer-flight_date }| ).
-        out->write( |  Preis: { ls_offer-price } { ls_offer-currencycode }| ).
+        out->write( |  Datum: { ls_offer-flight_date+6(2) }.{ ls_offer-flight_date+4(2) }.{ ls_offer-flight_date(4) }| ).
+        out->write( |  Abflugzeit: { ls_offer-departuretime(2) }:{ ls_offer-departuretime+2(2) } Uhr| ).
+        out->write( |  Ankunftszeit: { ls_offer-arrivaltime(2) }:{ ls_offer-arrivaltime+2(2) } Uhr| ).
+
+        " HIER IST DIE KORRIGIERTE PREISFORMATIERUNG
+        out->write( |  Preis: { ls_offer-price CURRENCY = ls_offer-currencycode }| ).
+
         out->write( |  Freie Plätze: { ls_offer-availableseats }| ).
         out->write( '------------------------------------------------------' ).
       ENDLOOP.

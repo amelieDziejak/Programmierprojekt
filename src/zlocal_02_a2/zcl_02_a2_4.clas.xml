@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_02_A2_LAST_MINUTE</CLSNAME>
+    <CLSNAME>ZCL_02_A2_4</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>get last minute flights</DESCRIPT>
+    <DESCRIPT>Get statistics</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

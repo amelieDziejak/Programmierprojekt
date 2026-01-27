@@ -4,7 +4,7 @@
 
 @EndUserText.label: 'Flight'
 
-@Search.searchable: true
+//@Search.searchable: true
 
 @Metadata.allowExtensions: true
 define root view entity ZC_02_FlightTP
@@ -13,11 +13,10 @@ define root view entity ZC_02_FlightTP
 
 {
   key CarrierId,
-  @Search.defaultSearchElement: true
-      @Search.fuzzinessThreshold: 0.7
+//  @Search.defaultSearchElement: true
+//      @Search.fuzzinessThreshold: 0.7
   key ConnectionId,
-  @Search.defaultSearchElement: true
-  @Search.fuzzinessThreshold: 0.7
+  
   key FlightDate,
 
       Price,
@@ -26,6 +25,8 @@ define root view entity ZC_02_FlightTP
       SeatsMax,
       SeatsOccupied,
       SeatOccupancyRate,
+      SeatOccupancCiticality,
+  /* Associations */    
       
   
   _Bookings : redirected to composition child ZC_02_BookingTP
