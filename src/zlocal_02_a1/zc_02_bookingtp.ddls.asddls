@@ -10,6 +10,7 @@
 
 define view entity ZC_02_BookingTP
   as projection on ZR_02_BookingTP
+  
 
 {
   key TravelId,
@@ -25,6 +26,7 @@ define view entity ZC_02_BookingTP
       FlightDate,
       FlightPrice,
       CurrencyCode,
+      zz_status,
       /* Associations */
 
 

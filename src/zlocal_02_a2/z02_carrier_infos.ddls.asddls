@@ -13,31 +13,38 @@ define view entity Z02_carrier_infos
     inner join   /dmo/airport    as ArrivalAirport   on Connection.airport_to_id = ArrivalAirport.airport_id
 
     inner join   /dmo/carrier    as Carrier          on Flight.carrier_id = Carrier.carrier_id
+    
+    -- Der Join auf /dmo/plane wurde entfernt, da die Tabelle nicht existiert
 {
   key Flight.carrier_id,
   key Flight.connection_id,
   key Flight.flight_date,
 
-      Carrier.name             as CarrierName,
-      Flight.carrier_id        as CarrierId,
-      Flight.connection_id     as ConnectionId,
-      Flight.flight_date       as FlightDate,
+      Carrier.name                  as CarrierName,
+      Flight.carrier_id             as CarrierId,
+      Flight.connection_id          as ConnectionId,
+      Flight.flight_date            as FlightDate,
       
-      -- NEU: Uhrzeiten hinzugefügt
-      Connection.departure_time as DepartureTime,
-      Connection.arrival_time   as ArrivalTime,
+      Connection.departure_time     as DepartureTime,
+      Connection.arrival_time       as ArrivalTime,
+      
+      Connection.distance           as Distance,
+      Connection.distance_unit      as DistanceUnit,
+      
+      -- NEU: Nur die ID des Flugzeugtyps, da die Beschreibungstabelle fehlt
+      Flight.plane_type_id          as PlaneTypeId,
 
-      DepartureAirport.name    as DepartureAirport,
-      DepartureAirport.city    as DepartureCity,
-      DepartureAirport.country as DepartureCountry,
+      DepartureAirport.name         as DepartureAirport,
+      DepartureAirport.city         as DepartureCity,
+      DepartureAirport.country      as DepartureCountry,
 
-      ArrivalAirport.name      as ArrivalAirport,
-      ArrivalAirport.city      as ArrivalCity,
-      ArrivalAirport.country   as ArrivalCountry,
+      ArrivalAirport.name           as ArrivalAirport,
+      ArrivalAirport.city           as ArrivalCity,
+      ArrivalAirport.country        as ArrivalCountry,
 
       @Semantics.amount.currencyCode : 'CurrencyCode'
       Flight.price,
-      Flight.currency_code     as CurrencyCode,
+      Flight.currency_code          as CurrencyCode,
       Flight.seats_occupied,
       Flight.seats_max
 }

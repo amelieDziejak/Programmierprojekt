@@ -48,6 +48,12 @@ annotate entity ZC_02_BookingTP with
 
   @UI.fieldGroup: [ { position: 50, qualifier: 'PriceData' } ]
   CurrencyCode;
+  /* In deiner Metadata Extension */
+
+  @UI.lineItem: [ { position: 80, label: 'Status' } ]
+  @UI.fieldGroup: [ { position: 60, qualifier: 'GeneralData', label: 'Status' } ]
+  @UI.selectionField: [ { position: 60 } ]
+  zz_status; 
 
   @UI.hidden: false
   _Flight;

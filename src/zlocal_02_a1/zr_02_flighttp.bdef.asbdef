@@ -5,7 +5,6 @@ define behavior for ZR_02_FlightTP alias Flight
 persistent table /dmo/flight
 lock master
 authorization master ( instance )
-//etag master <field_name>
 {
   create ( authorization : global );
   update;
@@ -13,12 +12,8 @@ authorization master ( instance )
   association _Bookings { create; }
 
   field ( mandatory : create ) CarrierId, ConnectionId, FlightDate;
-
   field ( readonly : update ) CarrierId, ConnectionId, FlightDate;
-
   field ( readonly ) SeatsOccupied;
-
-
 
   mapping for /dmo/flight corresponding
     {
@@ -37,30 +32,26 @@ define behavior for ZR_02_BookingTP alias Booking
 persistent table /dmo/booking
 lock dependent by _Flight
 authorization dependent by _Flight
-//etag master <field_name>
 {
-
   association _Flight;
   update;
   delete;
+
   field ( readonly ) TravelId, BookingId, CarrierId, BookingDate, FlightPrice;
   field ( mandatory : create ) CustomerId, ConnectionId, FlightDate;
   field ( readonly : update ) FlightDate, ConnectionId;
+  field ( features : instance ) zz_status;
 
-  // Determinations (Automatische Werte)
+  action cancelBooking result [1] $self;
+
   determination calculateBookingId on modify { create; }
   determination setBookingDate on modify { create; }
   determination setFlightData on modify { field ConnectionId, FlightDate; }
 
-  // Validations (Prüfungen)
   validation validateCustomer on save { field CustomerId; create; update; }
   validation validateConnection on save { field ConnectionId, FlightDate; create; update; }
 
-  // Side Effects auf den Parent (Sitzplätze)
   determination updateSeatsOccupied on modify { create; delete; }
-
-
-
 
   mapping for /dmo/booking corresponding
     {
@@ -73,5 +64,12 @@ authorization dependent by _Flight
       FlightDate   = flight_date;
       FlightPrice  = flight_price;
       TravelId     = travel_id;
+    }
+
+  mapping for z02_booking_ext
+    {
+      TravelId     = travel_id;
+      BookingId    = booking_id;
+      zz_status    = zz_status;
     }
 }
