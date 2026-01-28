@@ -1,75 +1,150 @@
 managed implementation in class zbp_02_flighttp unique;
+
 strict ( 2 );
 
+
+
 define behavior for ZR_02_FlightTP alias Flight
+
 persistent table /dmo/flight
+
 lock master
+
 authorization master ( instance )
+
+//etag master <field_name>
+
 {
-  create ( authorization : global );
-  update;
-  delete;
-  association _Bookings { create; }
 
-  field ( mandatory : create ) CarrierId, ConnectionId, FlightDate;
-  field ( readonly : update ) CarrierId, ConnectionId, FlightDate;
-  field ( readonly ) SeatsOccupied;
+create ( authorization : global );
 
-  mapping for /dmo/flight corresponding
-    {
-      CarrierId     = carrier_id;
-      ConnectionId  = connection_id;
-      CurrencyCode  = currency_code;
-      FlightDate    = flight_date;
-      PlaneTypeId   = plane_type_id;
-      Price         = price;
-      SeatsMax      = seats_max;
-      SeatsOccupied = seats_occupied;
-    }
+update;
+
+delete;
+
+association _Bookings { create; }
+
+
+
+field ( mandatory : create ) CarrierId, ConnectionId, FlightDate;
+
+
+
+field ( readonly : update ) CarrierId, ConnectionId, FlightDate;
+
+
+
+field ( readonly ) SeatsOccupied;
+
+
+
+
+
+
+
+mapping for /dmo/flight corresponding
+
+{
+
+CarrierId = carrier_id;
+
+ConnectionId = connection_id;
+
+CurrencyCode = currency_code;
+
+FlightDate = flight_date;
+
+PlaneTypeId = plane_type_id;
+
+Price = price;
+
+SeatsMax = seats_max;
+
+SeatsOccupied = seats_occupied;
+
 }
 
+}
+
+
+
 define behavior for ZR_02_BookingTP alias Booking
+
 persistent table /dmo/booking
+
 lock dependent by _Flight
+
 authorization dependent by _Flight
+
+//etag master <field_name>
+
 {
-  association _Flight;
-  update;
-  delete;
 
-  field ( readonly ) TravelId, BookingId, CarrierId, BookingDate, FlightPrice;
-  field ( mandatory : create ) CustomerId, ConnectionId, FlightDate;
-  field ( readonly : update ) FlightDate, ConnectionId;
-  field ( features : instance ) zz_status;
 
-  action cancelBooking result [1] $self;
 
-  determination calculateBookingId on modify { create; }
-  determination setBookingDate on modify { create; }
-  determination setFlightData on modify { field ConnectionId, FlightDate; }
+association _Flight;
 
-  validation validateCustomer on save { field CustomerId; create; update; }
-  validation validateConnection on save { field ConnectionId, FlightDate; create; update; }
+update;
 
-  determination updateSeatsOccupied on modify { create; delete; }
+delete;
 
-  mapping for /dmo/booking corresponding
-    {
-      BookingId    = booking_id;
-      BookingDate  = booking_date;
-      CarrierId    = carrier_id;
-      ConnectionId = connection_id;
-      CurrencyCode = currency_code;
-      CustomerId   = customer_id;
-      FlightDate   = flight_date;
-      FlightPrice  = flight_price;
-      TravelId     = travel_id;
-    }
+field ( readonly ) TravelId, BookingId, CarrierId, BookingDate, FlightPrice;
+
+field ( mandatory : create ) CustomerId, ConnectionId, FlightDate;
+
+field ( readonly : update ) FlightDate, ConnectionId;
+
+
+
+// Determinations (Automatische Werte)
+
+determination calculateBookingId on modify { create; }
+
+determination setBookingDate on modify { create; }
+
+determination setFlightData on modify { field ConnectionId, FlightDate; }
+
+
+
+// Validations (Prüfungen)
+
+validation validateCustomer on save { field CustomerId; create; update; }
+
+validation validateConnection on save { field ConnectionId, FlightDate; create; update; }
+
+
+
+// Side Effects auf den Parent (Sitzplätze)
+
+determination updateSeatsOccupied on modify { create; delete; }
+
+
+
+
+//action setStatus result [1] $self;
 
   mapping for z02_booking_ext
-    {
-      TravelId     = travel_id;
-      BookingId    = booking_id;
-      zz_status    = zz_status;
-    }
+  {
+    TravelId = travel_id;
+    BookingId = booking_id;
+    Status = status;
+  }
+
+
+
+
+
+mapping for /dmo/booking corresponding
+
+{
+
+BookingId = booking_id;
+
+BookingDate = booking_date;
+
+CarrierId = carrier_id;
+
+
+
+}
 }

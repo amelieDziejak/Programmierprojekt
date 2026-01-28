@@ -53,7 +53,7 @@ annotate entity ZC_02_BookingTP with
   @UI.lineItem: [ { position: 80, label: 'Status' } ]
   @UI.fieldGroup: [ { position: 60, qualifier: 'GeneralData', label: 'Status' } ]
   @UI.selectionField: [ { position: 60 } ]
-  zz_status; 
+  Status; 
 
   @UI.hidden: false
   _Flight;

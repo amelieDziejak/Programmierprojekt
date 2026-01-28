@@ -23,7 +23,7 @@ define view entity ZR_02_BookingTP
       FlightDate,
       FlightPrice,
       CurrencyCode,
-      zz_status,
+      Status,
 
       _Flight
 }

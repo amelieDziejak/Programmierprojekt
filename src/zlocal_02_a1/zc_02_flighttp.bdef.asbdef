@@ -16,4 +16,5 @@ define behavior for ZC_02_BookingTP //alias <alias_name>
   use delete;
 
   use association _Flight;
+//  use action setStatus;
 }
