@@ -25,7 +25,7 @@ define root view entity ZC_02_FlightTP
       SeatsMax,
       SeatsOccupied,
       SeatOccupancyRate,
-      SeatOccupancCiticality,
+      SeatOccupancyCiticality,
   /* Associations */    
       
   

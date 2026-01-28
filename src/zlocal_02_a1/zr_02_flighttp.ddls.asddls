@@ -27,7 +27,7 @@ define root view entity ZR_02_FlightTP
         
         when division(SeatsOccupied, SeatsMax, 2) > 0    then 3
         else 0 
-      end as SeatOccupancCiticality,
+      end as SeatOccupancyCiticality,
    
 
       _Bookings
