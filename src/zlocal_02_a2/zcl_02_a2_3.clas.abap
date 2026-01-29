@@ -13,8 +13,7 @@ CLASS zcl_02_a2_3 IMPLEMENTATION.
 
     out->write( |┌──────────────────────────────────────────────────────────────────┐| ).
     out->write( |│ LAST-MINUTE-ANGEBOTE (NÄCHSTE 300 TAGE)                          │| ).
-    out->write( |└──────────────────────────────────────────────────────────────────┘| ).
-    out->write( |  | ).
+    out->write( |├──────────────────────────────────────────────────────────────────┤| ).
 
     " 1. Datenabruf über die CDS-View
     SELECT *
@@ -24,7 +23,6 @@ CLASS zcl_02_a2_3 IMPLEMENTATION.
 
     IF lt_offers IS INITIAL.
 
-      out->write( |┌──────────────────────────────────────────────────────────────────┐| ).
       out->write( |│ KEINE ANGEBOTE                                                   │| ).
       out->write( |├──────────────────────────────────────────────────────────────────┤| ).
       out->write( |│ Status: Keine passenden Last-Minute-Angebote gefunden.           │| ).
@@ -32,24 +30,11 @@ CLASS zcl_02_a2_3 IMPLEMENTATION.
 
     ELSE.
 
-      out->write( |┌──────────────────────────────────────────────────────────────────┐| ).
-      out->write( |│ SUCHERGEBNIS                                                     │| ).
-      out->write( |├──────────────────────────────────────────────────────────────────┤| ).
       out->write( |│ Gefundene Angebote: { lines( lt_offers ) WIDTH = 45 PAD = ' ' ALIGN = LEFT }│| ).
       out->write( |└──────────────────────────────────────────────────────────────────┘| ).
       out->write( |  | ).
 
-      " Redundante Infos einmalig aus dem ersten Eintrag
-      DATA(ls_first_offer) = lt_offers[ 1 ].
 
-      out->write( |┌──────────────────────────────────────────────────────────────────┐| ).
-      out->write( |│ FLUGGESELLSCHAFT                                                 │| ).
-      out->write( |├──────────────────────────────────────────────────────────────────┤| ).
-      out->write( |│ Airline:    { ls_first_offer-carriername WIDTH = 52 PAD = ' ' ALIGN = LEFT } │| ).
-      out->write( |│ Carrier-ID: { ls_first_offer-carrier_id  WIDTH = 52 PAD = ' ' ALIGN = LEFT } │| ).
-      out->write( |│ Verbindung: { ls_first_offer-connection_id WIDTH = 52 PAD = ' ' ALIGN = LEFT } │| ).
-      out->write( |└──────────────────────────────────────────────────────────────────┘| ).
-      out->write( |  | ).
 
       LOOP AT lt_offers INTO DATA(ls_offer).
 
@@ -61,6 +46,11 @@ CLASS zcl_02_a2_3 IMPLEMENTATION.
 
         out->write( |┌──────────────────────────────────────────────────────────────────┐| ).
         out->write( |│ LAST-MINUTE-FLUG                                                 │| ).
+        out->write( |├──────────────────────────────────────────────────────────────────┤| ).
+        out->write( |│ FLUGGESELLSCHAFT                                                 │| ).
+        out->write( |│ Airline:       { CONV string( ls_offer-CarrierName ) WIDTH = 50 PAD = ' ' ALIGN = LEFT }│| ).
+        out->write( |│ Carrier-ID:    { CONV string( ls_offer-Carrier_Id ) WIDTH = 50 PAD = ' ' ALIGN = LEFT }│| ).
+        out->write( |│ Verbindung:    { CONV string( ls_offer-Connection_Id ) WIDTH = 50 PAD = ' ' ALIGN = LEFT }│| ).
         out->write( |├──────────────────────────────────────────────────────────────────┤| ).
         out->write( |│ Flugdatum:     { lv_flight_date     WIDTH = 50 PAD = ' ' ALIGN = LEFT }│| ).
         out->write( |│ Preis:         { lv_price           WIDTH = 50 PAD = ' ' ALIGN = LEFT }│| ).

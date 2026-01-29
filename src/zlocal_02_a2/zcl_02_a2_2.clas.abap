@@ -99,4 +99,3 @@ DATA(ls_first_flight) = lt_flights[ 1 ].
 
   ENDMETHOD.
 ENDCLASS.
-

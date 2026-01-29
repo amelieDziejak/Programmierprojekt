@@ -26,7 +26,7 @@ define view entity ZC_02_BookingTP
       FlightDate,
       FlightPrice,
       CurrencyCode,
-      Status,
+      
       /* Associations */
 
 
