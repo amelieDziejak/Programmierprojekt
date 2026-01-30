@@ -46,7 +46,7 @@ annotate entity ZC_02_BookingTP with
   @UI.lineItem: [ { position: 70 } ]
   FlightPrice;
 
-  @UI.fieldGroup: [ { position: 50, qualifier: 'PriceData' } ]
+@UI.hidden: false
   CurrencyCode;
   /* In deiner Metadata Extension */
 

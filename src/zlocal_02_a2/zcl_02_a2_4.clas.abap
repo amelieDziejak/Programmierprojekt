@@ -19,9 +19,8 @@ CLASS zcl_02_a2_4 IMPLEMENTATION.
       c_country   TYPE land1           VALUE 'DE',
       c_city      TYPE string          VALUE 'Frankfurt/Main',
       c_airportid TYPE /dmo/airport_id VALUE 'FRA'.
-    " Um nach einer Airline zu filtern, Kürzel eintragen (z.B. 'LH').
-    " Um alle Airlines zu sehen, leer lassen ( VALUE '' ).
-    DATA lv_carrier_id TYPE /dmo/carrier_id VALUE ''.
+
+    DATA lv_carrier_id TYPE /dmo/carrier_id VALUE 'LH'.
 
 
     out->write( `════════════════════════════════════════════════════════════════════` ).
@@ -71,9 +70,6 @@ CLASS zcl_02_a2_4 IMPLEMENTATION.
     DATA lt_airport_stats TYPE tt_airport_stats.
 
 
-    " ====================================================================
-    " SCHRITT 1: DATEN SAMMELN
-    " ====================================================================
     IF lv_carrier_id IS NOT INITIAL.
       " FALL 1: Es wird nach einer spezifischen Airline gefiltert.
       SELECT Country,
@@ -106,6 +102,11 @@ CLASS zcl_02_a2_4 IMPLEMENTATION.
         WHERE AirportId = @c_airportid
         GROUP BY AirportId, AirportName
         INTO TABLE @lt_airport_stats.
+
+
+
+
+
 
     ELSE.
       " FALL 2: Es wird NICHT nach einer Airline gefiltert.
@@ -143,11 +144,7 @@ CLASS zcl_02_a2_4 IMPLEMENTATION.
     ENDIF.
 
 
-    " ====================================================================
-    " SCHRITT 2: DATEN AUSGEBEN (EINHEITLICHE LOGIK)
-    " ====================================================================
 
-    " A1: Land
     LOOP AT lt_country_stats ASSIGNING FIELD-SYMBOL(<ls_country>).
       DATA(lv_gesamt_filt)  = <ls_country>-departures + <ls_country>-arrivals.
       DATA(lv_gesamt_total) = <ls_country>-abfluege_gesamt + <ls_country>-ankuenfte_gesamt.

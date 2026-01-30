@@ -28,7 +28,7 @@ field ( mandatory : create ) CarrierId, ConnectionId, FlightDate;
 
 
 
-field ( readonly : update ) CarrierId, ConnectionId, FlightDate;
+field ( readonly : update ) CurrencyCode, CarrierId, ConnectionId, FlightDate;
 
 
 
@@ -86,11 +86,11 @@ update;
 
 delete;
 
-field ( readonly ) CarrierId, BookingId;
+field ( readonly ) CarrierId;
 
 field ( mandatory : create ) TravelId, CustomerId, ConnectionId, FlightDate, FlightPrice, BookingDate;
 
-field ( readonly : update ) TravelId, FlightDate, ConnectionId;
+field ( readonly : update ) BookingId, CurrencyCode, TravelId, FlightDate, ConnectionId;
 
 
 
